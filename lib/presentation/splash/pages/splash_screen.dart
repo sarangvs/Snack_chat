@@ -1,4 +1,5 @@
 import 'package:chat_app/presentation/splash/bloc/splash_cubit.dart';
+import 'package:chat_app/presentation/widgets/main_title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,8 +14,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-
     return BlocListener<SplashCubit, SplashStatus>(
       listener: (context, state) {
         if (state == SplashStatus.authenticated) {
@@ -33,23 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Icon(Icons.chat_bubble_outline, size: 80, color: Colors.blue),
                   const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.displayLarge,
-                      children: [
-                        TextSpan(
-                          text: 'Snack',
-                          style: TextStyle(color: theme.primary),
-                        ),
-                        TextSpan(
-                          text: 'Chat',
-                          style: TextStyle(color: theme.secondary),
-                        ),
-                      ],
-                    ),
-                  ),
+                  MainTitleWidget(),
                   const SizedBox(height: 40),
-                  // if (state == SplashStatus.loading)
                   const CircularProgressIndicator(),
                 ],
               ),

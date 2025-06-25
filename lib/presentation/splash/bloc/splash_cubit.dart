@@ -20,10 +20,10 @@ class SplashCubit extends Cubit<SplashStatus> {
       );
 
       if (loggedIn) {
-        await prefs.setBool('isLoggedIn', true);
+        await prefs.setBool('isLoggedIn', false);
       }
     } catch (e) {
-      emit(SplashStatus.unauthenticated); // fallback
+      emit(SplashStatus.unauthenticated);
     }
   }
 }
