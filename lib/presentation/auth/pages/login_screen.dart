@@ -4,6 +4,7 @@ import 'package:chat_app/core/assets/app_assets.dart';
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/widgets/custom_elevated_button.dart';
+import 'package:chat_app/presentation/widgets/main_title_widget.dart';
 import 'package:chat_app/presentation/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -58,14 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SvgIcon(assetPath: AppAssets.loginImg, size: 200),
-
                           AppSpacing.gap32,
-                          Text(
-                            "Welcome back",
-                            style: themeStyle.titleLarge!.copyWith(
-                              fontSize: 24,
-                            ),
-                          ),
+
+                          MainTitleWidget(),
                           AppSpacing.gap32,
                           CustomTextFormField(
                             hintText: 'Email',
@@ -76,8 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Email is required';
                               }
-                              if (!value.contains('@'))
+                              if (!value.contains('@')) {
                                 return 'Enter a valid email';
+                              }
                               return null;
                             },
                           ),

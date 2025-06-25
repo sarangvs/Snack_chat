@@ -48,7 +48,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
           onTap: () => context.pop(),
           child: Icon(Icons.arrow_back, color: themeColor.shadowColor),
         ),
-        // centerTitle: true,
+        centerTitle: false,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
