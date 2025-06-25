@@ -1,5 +1,6 @@
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
+import 'package:chat_app/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,8 +12,11 @@ class ResgisterUserScreen extends StatefulWidget {
 }
 
 class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confrimPasswordController = TextEditingController();
+  final mobileController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -30,6 +34,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
         title: Text("Create your account", style: themeStyle.titleLarge),
         toolbarHeight: 40,
         backgroundColor: themeColor.scaffoldBackgroundColor,
@@ -50,6 +55,20 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
               children: [
                 AppSpacing.gap16,
                 CustomTextFormField(
+                  hintText: 'Display Name',
+                  controller: nameController,
+                  keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Name is required';
+                    }
+
+                    return null;
+                  },
+                ),
+                AppSpacing.gap16,
+                CustomTextFormField(
                   hintText: 'Email',
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -61,6 +80,63 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                     if (!value.contains('@')) return 'Enter a valid email';
                     return null;
                   },
+                ),
+                AppSpacing.gap16,
+                CustomTextFormField(
+                  hintText: 'Password',
+                  controller: passwordController,
+                  keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is required';
+                    }
+                    if (passwordController.text !=
+                        confrimPasswordController.text) {
+                      return 'Password and confirm password should be same';
+                    }
+
+                    return null;
+                  },
+                ),
+                AppSpacing.gap16,
+                CustomTextFormField(
+                  hintText: 'Confirm password',
+                  controller: confrimPasswordController,
+                  keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Confirm Password is required';
+                    }
+                    if (passwordController.text !=
+                        confrimPasswordController.text) {
+                      return 'Password and confirm password should be same';
+                    }
+
+                    return null;
+                  },
+                ),
+                AppSpacing.gap16,
+                CustomTextFormField(
+                  hintText: 'Mobile',
+                  controller: mobileController,
+                  keyboardType: TextInputType.emailAddress,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Mobile is required';
+                    }
+
+                    return null;
+                  },
+                ),
+                AppSpacing.gap16,
+                CustomElevatedButton(
+                  width: double.infinity,
+                  text: "Create",
+                  backgroundColor: themeColor.primaryColor,
+                  onPressed: () {},
                 ),
               ],
             ),
