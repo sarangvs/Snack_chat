@@ -1,10 +1,14 @@
 import 'dart:developer';
 
+import 'package:chat_app/DI/dependency_injection.dart';
 import 'package:chat_app/core/constants/app_spacing.dart';
+import 'package:chat_app/domain/usecases/get_country_names.dart';
+import 'package:chat_app/presentation/auth/cubit/country_cubit.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_dropdown.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ResgisterUserScreen extends StatefulWidget {
@@ -87,15 +91,21 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                   },
                 ),
                 AppSpacing.gap16,
-                CustomSearchDropdown(
-                  labelText: selectedRole,
-                  controller: countryController,
+                BlocProvider(
+                  create:
+                      (context) =>
+                          CountryCubit(getIt<GetCountryNames>())
+                            ..loadCountries(),
+                  child: CustomSearchDropdown(
+                    labelText: selectedRole,
+                    controller: countryController,
 
-                  data: ['Kozhikode', 'Kochi', 'Goa', 'Mumbai', 'Delhi'],
-                  onSelected: (city) {
-                    log(city);
-                    countryController.text = city;
-                  },
+                    data: ['Kozhikode', 'Kochi', 'Goa', 'Mumbai', 'Delhi'],
+                    onSelected: (city) {
+                      log(city);
+                      countryController.text = city;
+                    },
+                  ),
                 ),
 
                 // CustomDropdownSearchField(items: [], hintText: "hii"),
