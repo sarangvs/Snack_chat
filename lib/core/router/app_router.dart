@@ -1,4 +1,5 @@
 import 'package:chat_app/presentation/auth/pages/login_screen.dart';
+import 'package:chat_app/presentation/auth/pages/register_user_screen.dart';
 import 'package:chat_app/presentation/home/pages/home_screen.dart';
 import 'package:chat_app/presentation/splash/pages/splash_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,11 @@ final router = GoRouter(
       path: '/home',
       name: 'home',
       builder: (context, state) => HomeScreen(),
+    ),
+    GoRoute(
+      path: '/registerUser',
+      name: 'registerUser',
+      builder: (context, state) => ResgisterUserScreen(),
     ),
   ],
 );
