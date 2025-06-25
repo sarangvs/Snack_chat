@@ -16,11 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final confrimPasswordController = TextEditingController();
-  final mobileController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -44,74 +42,88 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: AppSpacing.screenPadding,
-            width: width,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgIcon(assetPath: AppAssets.loginImg, size: 200),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Container(
+                    padding: AppSpacing.screenPadding,
+                    width: width,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SvgIcon(assetPath: AppAssets.loginImg, size: 200),
 
-                  AppSpacing.gap16,
-                  Text(
-                    "Welcome back",
-                    style: themeStyle.titleLarge!.copyWith(fontSize: 24),
-                  ),
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Email',
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
+                          AppSpacing.gap32,
+                          Text(
+                            "Welcome back",
+                            style: themeStyle.titleLarge!.copyWith(
+                              fontSize: 24,
+                            ),
+                          ),
+                          AppSpacing.gap32,
+                          CustomTextFormField(
+                            hintText: 'Email',
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email is required';
-                      }
-                      if (!value.contains('@')) return 'Enter a valid email';
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Password',
-                    controller: passwordController,
-                    keyboardType: TextInputType.emailAddress,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Email is required';
+                              }
+                              if (!value.contains('@'))
+                                return 'Enter a valid email';
+                              return null;
+                            },
+                          ),
+                          AppSpacing.gap16,
+                          CustomTextFormField(
+                            hintText: 'Password',
+                            controller: passwordController,
+                            keyboardType: TextInputType.emailAddress,
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Password is required';
-                      }
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Password is required';
+                              }
 
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomElevatedButton(
-                    width: double.infinity,
-                    text: "Login",
-                    backgroundColor: themeColor.primaryColor,
-                    onPressed: () {},
-                  ),
-                  AppSpacing.gap16,
-                  GestureDetector(
-                    onTap: () {
-                      log("ontappp");
-                      context.push("/registerUser");
-                    },
-                    child: Text(
-                      "Create Account",
-                      style: themeStyle.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                              return null;
+                            },
+                          ),
+                          AppSpacing.gap16,
+                          CustomElevatedButton(
+                            width: double.infinity,
+                            text: "Login",
+                            backgroundColor: themeColor.primaryColor,
+                            onPressed: () {},
+                          ),
+                          AppSpacing.gap16,
+                          GestureDetector(
+                            onTap: () {
+                              log("ontappp");
+                              context.push("/registerUser");
+                            },
+                            child: Text(
+                              "Create Account",
+                              style: themeStyle.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          AppSpacing.gap32,
+                        ],
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

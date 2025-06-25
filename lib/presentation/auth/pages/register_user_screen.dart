@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:chat_app/core/constants/app_spacing.dart';
+import 'package:chat_app/presentation/auth/widgets/custom_dropdown.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +20,9 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
   final passwordController = TextEditingController();
   final confrimPasswordController = TextEditingController();
   final mobileController = TextEditingController();
+  final countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String selectedRole = "City";
 
   @override
   void dispose() {
@@ -82,6 +87,19 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                   },
                 ),
                 AppSpacing.gap16,
+                CustomSearchDropdown(
+                  labelText: selectedRole,
+                  controller: countryController,
+
+                  data: ['Kozhikode', 'Kochi', 'Goa', 'Mumbai', 'Delhi'],
+                  onSelected: (city) {
+                    log(city);
+                    countryController.text = city;
+                  },
+                ),
+
+                // CustomDropdownSearchField(items: [], hintText: "hii"),
+                AppSpacing.gap16,
                 CustomTextFormField(
                   hintText: 'Password',
                   controller: passwordController,
@@ -101,7 +119,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                 ),
                 AppSpacing.gap16,
                 CustomTextFormField(
-                  hintText: 'Confirm password',
+                  hintText: 'Confirm Password',
                   controller: confrimPasswordController,
                   keyboardType: TextInputType.emailAddress,
 
@@ -144,5 +162,39 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
         ),
       ),
     );
+  }
+}
+
+class City {
+  int? name;
+
+  City({this.name});
+}
+
+class CityService {
+  static CityService of(BuildContext context) => CityService();
+
+  Future<List<String>> find(String query) async {
+    // Simulate a delay as if fetching from an API or database
+    await Future.delayed(Duration(milliseconds: 300));
+
+    // Dummy city list
+    final cities = [
+      'New York',
+      'Los Angeles',
+      'Chicago',
+      'Houston',
+      'Phoenix',
+      'Philadelphia',
+      'San Antonio',
+      'San Diego',
+      'Dallas',
+      'San Jose',
+    ];
+
+    // Filter cities based on query
+    return cities
+        .where((city) => city.toLowerCase().contains(query.toLowerCase()))
+        .toList();
   }
 }
