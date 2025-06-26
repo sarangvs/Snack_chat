@@ -9,12 +9,19 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:chat_app/data/data_sources/local/user_local_datasource.dart'
+    as _i862;
 import 'package:chat_app/data/data_sources/remote/country_service.dart'
     as _i990;
-import 'package:chat_app/data/repositories/country_repository_impl.dart'
-    as _i316;
+import 'package:chat_app/data/data_sources/repositories/country_repository_impl.dart'
+    as _i587;
+import 'package:chat_app/data/data_sources/repositories/user_repository_impl.dart'
+    as _i845;
 import 'package:chat_app/domain/repositories/country_repository.dart' as _i236;
+import 'package:chat_app/domain/repositories/user_repository.dart' as _i390;
 import 'package:chat_app/domain/usecases/get_country_names.dart' as _i385;
+import 'package:chat_app/domain/usecases/login_user.dart' as _i680;
+import 'package:chat_app/domain/usecases/register_user.dart' as _i841;
 import 'package:chat_app/presentation/auth/bloc/auth_bloc.dart' as _i1053;
 import 'package:chat_app/presentation/auth/cubit/country_cubit.dart' as _i761;
 import 'package:chat_app/presentation/home/bloc/home_bloc.dart' as _i432;
@@ -31,16 +38,30 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.factory<_i432.HomeBloc>(() => _i432.HomeBloc());
     gh.factory<_i154.SplashCubit>(() => _i154.SplashCubit());
-    gh.factory<_i1053.AuthBloc>(() => _i1053.AuthBloc());
     gh.lazySingleton<_i990.RemoteDataSource>(() => _i990.RemoteDataSource());
+    gh.lazySingleton<_i862.UserLocalDatasource>(
+      () => _i862.UserLocalDatasourceImpl(),
+    );
     gh.lazySingleton<_i236.CountryRepository>(
-      () => _i316.CountryRepositoryImpl(gh<_i990.RemoteDataSource>()),
+      () => _i587.CountryRepositoryImpl(gh<_i990.RemoteDataSource>()),
     );
     gh.factory<_i385.GetCountryNames>(
       () => _i385.GetCountryNames(gh<_i236.CountryRepository>()),
     );
     gh.factory<_i761.CountryCubit>(
       () => _i761.CountryCubit(gh<_i385.GetCountryNames>()),
+    );
+    gh.lazySingleton<_i390.UserRepository>(
+      () => _i845.UserRepositoryImpl(gh<_i862.UserLocalDatasource>()),
+    );
+    gh.factory<_i841.RegisterUser>(
+      () => _i841.RegisterUser(gh<_i390.UserRepository>()),
+    );
+    gh.factory<_i680.LoginUser>(
+      () => _i680.LoginUser(gh<_i390.UserRepository>()),
+    );
+    gh.factory<_i1053.AuthBloc>(
+      () => _i1053.AuthBloc(gh<_i841.RegisterUser>(), gh<_i680.LoginUser>()),
     );
     return this;
   }

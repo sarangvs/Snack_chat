@@ -8,6 +8,7 @@ class CustomSearchDropdown extends StatefulWidget {
   final void Function(String) onSelected;
   final String? labelText;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const CustomSearchDropdown({
     super.key,
@@ -15,6 +16,7 @@ class CustomSearchDropdown extends StatefulWidget {
     required this.onSelected,
     this.labelText = "Country",
     this.controller,
+    this.validator,
   });
 
   @override
@@ -57,7 +59,7 @@ class _CustomSearchDropdownState extends State<CustomSearchDropdown> {
             builder: (context, fieldController, focusNode) {
               _fieldController = fieldController;
 
-              return TextField(
+              return TextFormField(
                 controller: fieldController,
                 focusNode: focusNode,
                 decoration: InputDecoration(
@@ -77,8 +79,10 @@ class _CustomSearchDropdownState extends State<CustomSearchDropdown> {
 
                   hintText: selectedCountry ?? widget.labelText,
                 ),
+                validator: widget.validator,
               );
             },
+
             itemBuilder: (context, item) {
               return ListTile(title: Text(item.name));
             },
