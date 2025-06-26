@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "607470229433",
+    "project_id": "snack-chat-fc35b",
+    "storage_bucket": "snack-chat-fc35b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607470229433:android:c0ea31de614af6cfdf8868",
+        "android_client_info": {
+          "package_name": "com.android.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzl1pxKjnvARVV1kwGQ84K4Z8je28d8tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
