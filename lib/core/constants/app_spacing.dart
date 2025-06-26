@@ -21,6 +21,14 @@ class AppSpacing {
   static const SizedBox gap24 = SizedBox(height: 24.0);
   static const SizedBox gap32 = SizedBox(height: 32.0);
 
+  // WidthSpace (SizedBoxes)
+  static const SizedBox widthSpace4 = SizedBox(width: 4.0);
+  static const SizedBox widthSpace8 = SizedBox(width: 8.0);
+  static const SizedBox widthSpace12 = SizedBox(width: 12.0);
+  static const SizedBox widthSpace16 = SizedBox(width: 16.0);
+  static const SizedBox widthSpace24 = SizedBox(width: 24.0);
+  static const SizedBox widthSpace32 = SizedBox(width: 32.0);
+
   // Spacing units (if needed for spacing values only)
   static const double space4 = 4.0;
   static const double space8 = 8.0;
