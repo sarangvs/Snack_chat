@@ -63,13 +63,14 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
             child: BlocListener<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthError) {
-                  // Show snackbar with error
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(state.message),
                       backgroundColor: Colors.red,
                     ),
                   );
+                } else if (state is AuthRegistered) {
+                  context.goNamed('home');
                 }
               },
               child: Form(
