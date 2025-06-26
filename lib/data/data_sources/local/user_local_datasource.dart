@@ -30,15 +30,31 @@ class UserLocalDatasourceImpl implements UserLocalDatasource {
         ''');
       },
     );
+    print("✅ DB initialized");
   }
 
   @override
   Future<void> registerUser(UserModel user) async {
-    await db.insert(
+    final existingUser = await db.query(
       'users',
-      user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      where: 'email = ?',
+      whereArgs: [user.email],
     );
+
+    if (existingUser.isNotEmpty) {
+      throw Exception("User with this email already exists");
+    }
+
+    try {
+      await db.insert(
+        'users',
+        user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      await printAllUsers(); // ✅ Await this
+    } catch (e) {
+      print("Insert error: $e");
+    }
   }
 
   @override
@@ -53,5 +69,13 @@ class UserLocalDatasourceImpl implements UserLocalDatasource {
       return UserModel.fromMap(result.first);
     }
     return null;
+  }
+
+  Future<void> printAllUsers() async {
+    final result = await db.query('users');
+    print("----- All Registered Users -----");
+    for (var row in result) {
+      print(row);
+    }
   }
 }

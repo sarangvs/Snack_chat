@@ -60,147 +60,162 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
           child: Container(
             padding: AppSpacing.screenPadding,
             width: width,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Display Name',
-                    controller: nameController,
-                    keyboardType: TextInputType.emailAddress,
+            child: BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthError) {
+                  // Show snackbar with error
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppSpacing.gap16,
+                    CustomTextFormField(
+                      hintText: 'Display Name',
+                      controller: nameController,
+                      keyboardType: TextInputType.emailAddress,
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Name is required';
-                      }
-
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Email',
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email is required';
-                      }
-                      if (!value.contains('@')) return 'Enter a valid email';
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  BlocProvider(
-                    create:
-                        (context) =>
-                            CountryCubit(getIt<GetCountryNames>())
-                              ..loadCountries(),
-                    child: CustomSearchDropdown(
-                      labelText: selectedRole,
-                      controller: countryController,
-
-                      onSelected: (city) {
-                        log(city);
-                        countryController.text = city;
-                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Country is required';
+                          return 'Name is required';
                         }
 
                         return null;
                       },
                     ),
-                  ),
+                    AppSpacing.gap16,
+                    CustomTextFormField(
+                      hintText: 'Email',
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
 
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Password',
-                    controller: passwordController,
-                    keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!value.contains('@')) return 'Enter a valid email';
+                        return null;
+                      },
+                    ),
+                    AppSpacing.gap16,
+                    BlocProvider(
+                      create:
+                          (context) =>
+                              CountryCubit(getIt<GetCountryNames>())
+                                ..loadCountries(),
+                      child: CustomSearchDropdown(
+                        labelText: selectedRole,
+                        controller: countryController,
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Password is required';
-                      }
-                      if (passwordController.text !=
-                          confrimPasswordController.text) {
-                        return 'Password and confirm password should be same';
-                      }
+                        onSelected: (city) {
+                          log(city);
+                          countryController.text = city;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Country is required';
+                          }
 
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Confirm Password',
-                    controller: confrimPasswordController,
-                    keyboardType: TextInputType.emailAddress,
+                          return null;
+                        },
+                      ),
+                    ),
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Confirm Password is required';
-                      }
-                      if (passwordController.text !=
-                          confrimPasswordController.text) {
-                        return 'Password and confirm password should be same';
-                      }
+                    AppSpacing.gap16,
+                    CustomTextFormField(
+                      hintText: 'Password',
+                      controller: passwordController,
+                      keyboardType: TextInputType.emailAddress,
 
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomTextFormField(
-                    hintText: 'Mobile',
-                    controller: mobileController,
-                    keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (passwordController.text !=
+                            confrimPasswordController.text) {
+                          return 'Password and confirm password should be same';
+                        }
 
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Mobile is required';
-                      }
+                        return null;
+                      },
+                    ),
+                    AppSpacing.gap16,
+                    CustomTextFormField(
+                      hintText: 'Confirm Password',
+                      controller: confrimPasswordController,
+                      keyboardType: TextInputType.emailAddress,
 
-                      return null;
-                    },
-                  ),
-                  AppSpacing.gap16,
-                  CustomElevatedButton(
-                    width: double.infinity,
-                    text: "Create",
-                    backgroundColor: themeColor.primaryColor,
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // All fields are valid, print values
-                        print('Name: ${nameController.text}');
-                        print('Email: ${emailController.text}');
-                        print('Country: ${countryController.text}');
-                        print('Password: ${passwordController.text}');
-                        print(
-                          'Confirm Password: ${confrimPasswordController.text}',
-                        );
-                        print('Mobile: ${mobileController.text}');
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Confirm Password is required';
+                        }
+                        if (passwordController.text !=
+                            confrimPasswordController.text) {
+                          return 'Password and confirm password should be same';
+                        }
 
-                        context.read<AuthBloc>().add(
-                          RegisterEvent(
-                            name: nameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            mobile: mobileController.text,
-                            country: countryController.text,
-                          ),
-                        );
+                        return null;
+                      },
+                    ),
+                    AppSpacing.gap16,
+                    CustomTextFormField(
+                      hintText: 'Mobile',
+                      controller: mobileController,
+                      keyboardType: TextInputType.emailAddress,
 
-                        // You can now also proceed with registration logic here
-                      } else {
-                        print("Validation failed. Please correct the errors.");
-                      }
-                    },
-                  ),
-                ],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Mobile is required';
+                        }
+
+                        return null;
+                      },
+                    ),
+                    AppSpacing.gap16,
+                    CustomElevatedButton(
+                      width: double.infinity,
+                      text: "Create",
+                      backgroundColor: themeColor.primaryColor,
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          // All fields are valid, print values
+                          print('Name: ${nameController.text}');
+                          print('Email: ${emailController.text}');
+                          print('Country: ${countryController.text}');
+                          print('Password: ${passwordController.text}');
+                          print(
+                            'Confirm Password: ${confrimPasswordController.text}',
+                          );
+                          print('Mobile: ${mobileController.text}');
+
+                          context.read<AuthBloc>().add(
+                            RegisterEvent(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              mobile: mobileController.text,
+                              country: countryController.text,
+                            ),
+                          );
+
+                          // You can now also proceed with registration logic here
+                        } else {
+                          print(
+                            "Validation failed. Please correct the errors.",
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

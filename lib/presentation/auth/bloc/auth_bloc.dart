@@ -20,6 +20,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
+    print("RegisterEvent received");
+
     try {
       final user = UserEntity(
         id: generateUUID(),
@@ -29,10 +31,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         mobile: event.mobile,
         country: event.country,
       );
+
+      print("Registering user: ${user.email}");
       await registerUser(user);
+
+      print("✅ User registered, emitting AuthRegistered");
       emit(AuthRegistered());
     } catch (e) {
-      emit(AuthError("Registration failed"));
+      print("❌ Error during registration: $e");
+      emit(AuthError("Registration failed: ${e.toString()}"));
     }
   }
 
