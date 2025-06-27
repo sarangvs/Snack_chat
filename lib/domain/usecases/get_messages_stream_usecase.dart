@@ -3,11 +3,11 @@ import 'package:chat_app/domain/repositories/chat_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class SendMessageUseCase {
+class GetMessagesStreamUseCase {
   final ChatRepository repository;
-  SendMessageUseCase(this.repository);
+  GetMessagesStreamUseCase(this.repository);
 
-  Future<void> call(String chatRoomId, MessageEntity message) {
-    return repository.sendMessage(chatRoomId, message);
+  Stream<List<MessageEntity>> call(String chatRoomId) {
+    return repository.getMessages(chatRoomId);
   }
 }

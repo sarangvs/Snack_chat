@@ -1,11 +1,13 @@
 class MessageEntity {
-  final String sender;
-  final String message;
+  final String senderId;
+  final String receiverId;
+  final String text;
   final DateTime timestamp;
 
-  MessageEntity({
-    required this.sender,
-    required this.message,
+  const MessageEntity({
+    required this.senderId,
+    required this.receiverId,
+    required this.text,
     required this.timestamp,
   });
 }

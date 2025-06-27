@@ -37,6 +37,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       log("Registering user: ${user.email}");
       await registerUser(user);
+      final prefs = await SharedPreferences.getInstance();
+
+      await prefs.setString('userId', user.id);
 
       log("✅ User registered, emitting AuthRegistered");
       emit(AuthRegistered());

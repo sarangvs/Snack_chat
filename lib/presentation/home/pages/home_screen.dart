@@ -1,12 +1,9 @@
-import 'dart:developer';
-
-import 'package:chat_app/DI/dependency_injection.dart';
 import 'package:chat_app/core/constants/app_spacing.dart';
-import 'package:chat_app/domain/usecases/get_device_token_usecase.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
-import 'package:chat_app/presentation/home/widgets/qr_code_view.dart';
+import 'package:chat_app/presentation/qr_generater/pages/qr_generator_page.dart';
+import 'package:chat_app/presentation/qr_generater/pages/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,20 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         centerTitle: true,
         actions: [
-          FutureBuilder<String?>(
-            future: getIt<GetDeviceTokenUseCase>().call(),
-            builder: (context, snapshot) {
-              final token = snapshot.data;
-              return IconButton(
-                onPressed: () {
-                  log("token. $token");
-                  context.pushNamed('qrcode', extra: token);
-                  QRCodeDisplayScreen(token: token!);
-                },
-                icon: Icon(Icons.qr_code_2, color: themeColor.dividerColor),
+          IconButton(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              final userId = prefs.getString('userId') ?? "";
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => QrGeneratorScreen(myUid: userId),
+                ),
               );
             },
+            icon: Icon(Icons.qr_code_2, color: themeColor.dividerColor),
           ),
+
           IconButton(onPressed: null, icon: Icon(Icons.logout)),
         ],
       ),
@@ -110,6 +106,17 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ElevatedButton(
+        onPressed: () async {
+          final prefs = await SharedPreferences.getInstance();
+          final userId = prefs.getString('userId') ?? "";
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => QrScannerScreen(myUid: userId)),
+          );
+        },
+        child: const Text("Scan QR Code to Start Chat"),
       ),
     );
   }
