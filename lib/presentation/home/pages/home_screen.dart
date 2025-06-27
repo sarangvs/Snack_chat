@@ -4,7 +4,9 @@ import 'package:chat_app/DI/dependency_injection.dart';
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/domain/usecases/get_device_token_usecase.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
+import 'package:chat_app/presentation/home/widgets/qr_code_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,6 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
               return IconButton(
                 onPressed: () {
                   log("token. $token");
+                  context.pushNamed('qrcode', extra: token);
+                  QRCodeDisplayScreen(token: token!);
                 },
                 icon: Icon(Icons.qr_code_2, color: themeColor.dividerColor),
               );
