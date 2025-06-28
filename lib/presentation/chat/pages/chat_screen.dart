@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chat_app/domain/entities/message_entity.dart';
 import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    log("myUserId ${widget.myUid}");
     context.read<ChatBloc>().add(LoadMessages(widget.chatRoomId));
   }
 

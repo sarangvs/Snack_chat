@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/qr_generater/pages/qr_generator_page.dart';
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
+
+  bool isUser1 = true;
 
   @override
   void dispose() {
@@ -72,17 +76,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder:
                             (context, index) => GestureDetector(
-                              onTap: () {
-                                const myUid = "user1";
-                                const receiverUid = "user2";
-                                const chatRoomId = "user1_user2";
+                              onTap: () async {
+                                if (Platform.isIOS) {
+                                  isUser1 = false;
+                                } else {
+                                  isUser1 = true;
+                                }
+                                final prefs =
+                                    await SharedPreferences.getInstance();
+                                final userId = prefs.getString('userId') ?? "";
+                                final myUid = isUser1 ? "user1" : "user2";
+                                final receiverUid = isUser1 ? "user2" : "user1";
+                                final chatRoomId = [myUid, receiverUid]..sort();
+                                final finalChatRoomId = chatRoomId.join("_");
 
                                 context.push(
                                   '/chat',
                                   extra: {
-                                    'myUid': myUid,
+                                    'myUid': userId,
                                     'receiverUid': receiverUid,
-                                    'chatRoomId': chatRoomId,
+                                    'chatRoomId': finalChatRoomId,
                                   },
                                 );
                               },

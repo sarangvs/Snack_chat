@@ -40,9 +40,10 @@ final router = GoRouter(
     GoRoute(
       path: '/chat',
       builder: (context, state) {
-        const myUid = "user1";
-        const receiverUid = "user2";
-        const chatRoomId = "user1_user2";
+        final extra = state.extra! as Map<String, String>;
+        final myUid = extra['myUid']!;
+        final receiverUid = extra['receiverUid']!;
+        final chatRoomId = extra['chatRoomId']!;
         return ChatScreen(
           myUid: myUid,
           receiverUid: receiverUid,
