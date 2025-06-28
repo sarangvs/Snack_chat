@@ -1,5 +1,6 @@
 import 'package:chat_app/presentation/auth/pages/login_screen.dart';
 import 'package:chat_app/presentation/auth/pages/register_user_screen.dart';
+import 'package:chat_app/presentation/chat/pages/chat_screen.dart';
 import 'package:chat_app/presentation/home/pages/home_screen.dart';
 import 'package:chat_app/presentation/home/widgets/qr_code_view.dart';
 import 'package:chat_app/presentation/splash/pages/splash_screen.dart';
@@ -34,6 +35,19 @@ final router = GoRouter(
       builder: (context, state) {
         final token = state.extra as String;
         return QRCodeDisplayScreen(token: token);
+      },
+    ),
+    GoRoute(
+      path: '/chat',
+      builder: (context, state) {
+        const myUid = "user1";
+        const receiverUid = "user2";
+        const chatRoomId = "user1_user2";
+        return ChatScreen(
+          myUid: myUid,
+          receiverUid: receiverUid,
+          chatRoomId: chatRoomId,
+        );
       },
     ),
   ],

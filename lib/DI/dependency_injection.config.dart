@@ -9,8 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:chat_app/data/data_sources/firebase/firebase_messaging_data_source.dart'
-    as _i537;
 import 'package:chat_app/data/data_sources/local/user_local_datasource.dart'
     as _i862;
 import 'package:chat_app/data/data_sources/remote/country_service.dart'
@@ -63,10 +61,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.lazySingleton<_i892.FirebaseMessaging>(() => firebaseModule.messaging);
     gh.lazySingleton<_i990.RemoteDataSource>(() => _i990.RemoteDataSource());
-    gh.lazySingleton<_i537.FirebaseMessagingDataSource>(
-      () =>
-          _i537.FirebaseMessagingDataSourceImpl(gh<_i892.FirebaseMessaging>()),
-    );
     gh.lazySingleton<_i1029.FirebaseRemoteDataSource>(
       () => _i482.FirebaseRemoteDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
