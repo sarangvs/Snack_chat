@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
-import 'package:chat_app/presentation/qr_generater/pages/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           final prefs = await SharedPreferences.getInstance();
                           final userId = prefs.getString('userId') ?? "";
-                          final myUid = isUser1 ? "user1" : "user2";
+                          final myUid = isUser1 ? userId : "user2";
                           final receiverUid = isUser1 ? "user2" : "user1";
                           final chatRoomId = [myUid, receiverUid]..sort();
                           final finalChatRoomId = chatRoomId.join("_");
@@ -91,43 +90,40 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ElevatedButton(
-        onPressed: () async {
-          final prefs = await SharedPreferences.getInstance();
-          final userId = prefs.getString('userId') ?? "";
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => QrScannerScreen(myUid: userId)),
-          );
-        },
-        child: const Text("Scan QR Code to Start Chat"),
-      ),
     );
   }
 
-  Row _userCardWidget(ThemeData themeColor, TextTheme themeStyle) {
-    return Row(
-      children: [
-        CircleAvatar(backgroundColor: themeColor.highlightColor, maxRadius: 25),
-        AppSpacing.widthSpace12,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Sarang",
-              style: themeStyle.bodyLarge!.copyWith(
-                fontWeight: FontWeight.w600,
+  Widget _userCardWidget(ThemeData themeColor, TextTheme themeStyle) {
+    return Container(
+      color: Colors.transparent,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundColor: themeColor.dividerColor,
+            maxRadius: 25,
+            child: Icon(Icons.person),
+          ),
+          AppSpacing.widthSpace12,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "User",
+                style: themeStyle.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Text(
-              "message",
-              style: themeStyle.bodySmall!.copyWith(
-                color: themeColor.disabledColor,
+              Text(
+                "message",
+                style: themeStyle.bodySmall!.copyWith(
+                  color: themeColor.disabledColor,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

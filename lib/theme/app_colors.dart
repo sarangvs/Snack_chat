@@ -12,4 +12,6 @@ class AppColors {
   static const onSurface = Color(0xFF000000);
   static const onError = Color(0xFFFFFFFF);
   static var lightTextShade = Colors.grey[600];
+  static var chatBox1 = Color(0xffDBE8F2);
+  static var chatBox2 = Color(0xffF2F2F5);
 }
