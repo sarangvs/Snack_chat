@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           final prefs = await SharedPreferences.getInstance();
                           final userId = prefs.getString('userId') ?? "";
-                          final myUid = isUser1 ? userId : "user2";
+                          final myUid = isUser1 ? "user1" : "user2";
                           final receiverUid = isUser1 ? "user2" : "user1";
                           final chatRoomId = [myUid, receiverUid]..sort();
                           final finalChatRoomId = chatRoomId.join("_");
