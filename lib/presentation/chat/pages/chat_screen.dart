@@ -63,8 +63,17 @@ class _ChatScreenState extends State<ChatScreen> {
                     reverse: true,
                     itemCount: messages.length,
                     itemBuilder: (_, index) {
-                      final message = messages[messages.length - 1 - index];
+                      final message = messages[index];
                       final isMe = message.senderId == widget.myUid;
+
+                      // Format time
+                      final timeString =
+                          message.timestamp is DateTime
+                              ? TimeOfDay.fromDateTime(
+                                message.timestamp,
+                              ).format(context)
+                              : 'Time unavailable';
+
                       return Align(
                         alignment:
                             isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -81,7 +90,29 @@ class _ChatScreenState extends State<ChatScreen> {
                                     : Colors.grey.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(message.text),
+                          child: Column(
+                            crossAxisAlignment:
+                                isMe
+                                    ? CrossAxisAlignment.end
+                                    : CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                message.text,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: isMe ? Colors.white : Colors.black,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                timeString,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: isMe ? Colors.white : Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
-import 'package:chat_app/presentation/qr_generater/pages/qr_generator_page.dart';
 import 'package:chat_app/presentation/qr_generater/pages/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -39,19 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () async {
-              final prefs = await SharedPreferences.getInstance();
-              final userId = prefs.getString('userId') ?? "";
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => QrGeneratorScreen(myUid: userId),
-                ),
-              );
-            },
-            icon: Icon(Icons.qr_code_2, color: themeColor.dividerColor),
-          ),
-
+          IconButton(onPressed: null, icon: Icon(Icons.location_on_outlined)),
           IconButton(onPressed: null, icon: Icon(Icons.logout)),
         ],
       ),
@@ -71,38 +58,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         controller: searchController,
                       ),
                       AppSpacing.gap16,
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder:
-                            (context, index) => GestureDetector(
-                              onTap: () async {
-                                if (Platform.isIOS) {
-                                  isUser1 = false;
-                                } else {
-                                  isUser1 = true;
-                                }
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-                                final userId = prefs.getString('userId') ?? "";
-                                final myUid = isUser1 ? "user1" : "user2";
-                                final receiverUid = isUser1 ? "user2" : "user1";
-                                final chatRoomId = [myUid, receiverUid]..sort();
-                                final finalChatRoomId = chatRoomId.join("_");
+                      GestureDetector(
+                        onTap: () async {
+                          if (Platform.isIOS) {
+                            isUser1 = false;
+                          } else {
+                            isUser1 = true;
+                          }
+                          final prefs = await SharedPreferences.getInstance();
+                          final userId = prefs.getString('userId') ?? "";
+                          final myUid = isUser1 ? "user1" : "user2";
+                          final receiverUid = isUser1 ? "user2" : "user1";
+                          final chatRoomId = [myUid, receiverUid]..sort();
+                          final finalChatRoomId = chatRoomId.join("_");
 
-                                context.push(
-                                  '/chat',
-                                  extra: {
-                                    'myUid': userId,
-                                    'receiverUid': receiverUid,
-                                    'chatRoomId': finalChatRoomId,
-                                  },
-                                );
-                              },
-                              child: _userCardWidget(themeColor, themeStyle),
-                            ),
-                        separatorBuilder: (context, index) => AppSpacing.gap12,
-                        itemCount: 6,
+                          context.push(
+                            '/chat',
+                            extra: {
+                              'myUid': userId,
+                              'receiverUid': receiverUid,
+                              'chatRoomId': finalChatRoomId,
+                            },
+                          );
+                        },
+                        child: _userCardWidget(themeColor, themeStyle),
                       ),
                     ],
                   ),
