@@ -6,6 +6,7 @@ import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart';
 import 'package:chat_app/presentation/chat/widget/chat_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -51,12 +52,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final themeColor = Theme.of(context);
     final themeStyle = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("User", style: themeStyle.titleLarge),
+        title: Text(loc.user, style: themeStyle.titleLarge),
         backgroundColor: themeColor.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: false,
@@ -106,21 +108,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
               ),
             ),
-            _sendMessageWidget(),
+            _sendMessageWidget(loc),
           ],
         ),
       ),
     );
   }
 
-  Padding _sendMessageWidget() {
+  Padding _sendMessageWidget(AppLocalizations loc) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: Row(
         children: [
           Expanded(
             child: CustomTextFormField(
-              hintText: "Message..",
+              hintText: "${loc.message}...",
               controller: _controller,
             ),
           ),

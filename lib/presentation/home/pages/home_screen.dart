@@ -4,6 +4,7 @@ import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/home/widgets/logout_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,13 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final themeColor = Theme.of(context);
     final themeStyle = Theme.of(context).textTheme;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chats", style: themeStyle.titleLarge),
+        title: Text(loc.chats, style: themeStyle.titleLarge),
         backgroundColor: themeColor.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       CustomTextFormField(
-                        hintText: "Search",
+                        hintText: loc.search,
                         controller: searchController,
                       ),
                       AppSpacing.gap16,
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           );
                         },
-                        child: _userCardWidget(themeColor, themeStyle),
+                        child: _userCardWidget(themeColor, themeStyle, loc),
                       ),
                     ],
                   ),
@@ -110,7 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _userCardWidget(ThemeData themeColor, TextTheme themeStyle) {
+  Widget _userCardWidget(
+    ThemeData themeColor,
+    TextTheme themeStyle,
+    AppLocalizations loc,
+  ) {
     return Container(
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width,
@@ -126,13 +132,13 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "User",
+                loc.user,
                 style: themeStyle.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                "message",
+                loc.message,
                 style: themeStyle.bodySmall!.copyWith(
                   color: themeColor.disabledColor,
                 ),

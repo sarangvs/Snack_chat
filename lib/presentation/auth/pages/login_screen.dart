@@ -7,6 +7,7 @@ import 'package:chat_app/presentation/widgets/main_title_widget.dart';
 import 'package:chat_app/presentation/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final themeColor = Theme.of(context);
     final themeStyle = Theme.of(context).textTheme;
     final width = MediaQuery.of(context).size.width;
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Log In", style: themeStyle.titleLarge),
+          title: Text(loc.login, style: themeStyle.titleLarge),
           backgroundColor: themeColor.scaffoldBackgroundColor,
           elevation: 0,
           centerTitle: true,
@@ -74,29 +76,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             MainTitleWidget(),
                             AppSpacing.gap32,
                             CustomTextFormField(
-                              hintText: 'Email',
+                              hintText: loc.email,
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
 
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Email is required';
+                                  return loc.emailRequired;
                                 }
                                 if (!value.contains('@')) {
-                                  return 'Enter a valid email';
+                                  return loc.invalidEmail;
                                 }
                                 return null;
                               },
                             ),
                             AppSpacing.gap16,
                             CustomTextFormField(
-                              hintText: 'Password',
+                              hintText: loc.password,
                               controller: passwordController,
                               keyboardType: TextInputType.emailAddress,
 
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Password is required';
+                                  return loc.passwordRequired;
                                 }
 
                                 return null;
@@ -105,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             AppSpacing.gap16,
                             CustomElevatedButton(
                               width: double.infinity,
-                              text: "Login",
+                              text: loc.login,
                               backgroundColor: themeColor.primaryColor,
                               onPressed: () {
                                 if (_formKey.currentState?.validate() ??
@@ -125,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context.push("/registerUser");
                               },
                               child: Text(
-                                "Create Account",
+                                loc.createYourAccount,
                                 style: themeStyle.bodyMedium!.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),

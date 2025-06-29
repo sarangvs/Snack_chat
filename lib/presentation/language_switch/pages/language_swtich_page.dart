@@ -16,7 +16,8 @@ class LanguageSwitchPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map", style: themeStyle.titleLarge),
+        titleSpacing: 0,
+        title: Text(loc.switchLanguage, style: themeStyle.titleLarge),
         backgroundColor: themeColor.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: false,

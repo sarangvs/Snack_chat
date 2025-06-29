@@ -21,5 +21,16 @@
   "country": "البلد",
   "confirmPassword": "تأكيد كلمة المرور",
   "mobile": "رقم الهاتف",
-  "create": "إنشاء"
+  "create": "إنشاء",
+  "snack": "وجبة خفيفة",
+  "chat": "دردشة",
+  "emailRequired": "البريد الإلكتروني مطلوب",
+  "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+  "passwordRequired": "كلمة المرور مطلوبة",
+  "nameRequired": "الاسم مطلوب",
+  "countryRequired": "البلد مطلوب",
+  "passwordMismatch": "يجب أن تكون كلمة المرور وتأكيدها متطابقين",
+  "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
+  "mobileRequired": "رقم الهاتف مطلوب"
+
 }

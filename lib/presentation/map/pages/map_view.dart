@@ -1,6 +1,7 @@
 import 'package:chat_app/presentation/map/bloc/map_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -20,7 +21,6 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
 
-    /// 🔄 Delay access to context until it's mounted
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Geolocator.getPositionStream().listen((position) {
         context.read<MapBloc>().add(UpdateLocationEvent(position));
@@ -30,11 +30,12 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final themeColor = Theme.of(context);
     final themeStyle = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map", style: themeStyle.titleLarge),
+        title: Text(loc.map, style: themeStyle.titleLarge),
         backgroundColor: themeColor.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: false,
@@ -69,7 +70,7 @@ class _MapPageState extends State<MapPage> {
                       icon: BitmapDescriptor.defaultMarkerWithHue(
                         BitmapDescriptor.hueAzure,
                       ),
-                      infoWindow: const InfoWindow(title: "Pond / Lake"),
+                      infoWindow: const InfoWindow(title: "Pond"),
                     );
                   }).toSet(),
             );

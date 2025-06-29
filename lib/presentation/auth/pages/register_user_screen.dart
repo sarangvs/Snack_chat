@@ -10,6 +10,7 @@ import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class ResgisterUserScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final themeColor = Theme.of(context);
     final themeStyle = Theme.of(context).textTheme;
     final width = MediaQuery.of(context).size.width;
@@ -45,7 +47,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        title: Text("Create your account", style: themeStyle.titleLarge),
+        title: Text(loc.createYourAccount, style: themeStyle.titleLarge),
         toolbarHeight: 40,
         backgroundColor: themeColor.scaffoldBackgroundColor,
         elevation: 0,
@@ -80,13 +82,13 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                   children: [
                     AppSpacing.gap16,
                     CustomTextFormField(
-                      hintText: 'Display Name',
+                      hintText: loc.displayName,
                       controller: nameController,
                       keyboardType: TextInputType.emailAddress,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Name is required';
+                          return loc.nameRequired;
                         }
 
                         return null;
@@ -94,15 +96,15 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                     ),
                     AppSpacing.gap16,
                     CustomTextFormField(
-                      hintText: 'Email',
+                      hintText: loc.email,
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Email is required';
+                          return loc.emailRequired;
                         }
-                        if (!value.contains('@')) return 'Enter a valid email';
+                        if (!value.contains('@')) return loc.invalidEmail;
                         return null;
                       },
                     ),
@@ -122,7 +124,7 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Country is required';
+                            return loc.countryRequired;
                           }
 
                           return null;
@@ -132,17 +134,17 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
 
                     AppSpacing.gap16,
                     CustomTextFormField(
-                      hintText: 'Password',
+                      hintText: loc.password,
                       controller: passwordController,
                       keyboardType: TextInputType.emailAddress,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Password is required';
+                          return loc.passwordRequired;
                         }
                         if (passwordController.text !=
                             confrimPasswordController.text) {
-                          return 'Password and confirm password should be same';
+                          return loc.passwordMismatch;
                         }
 
                         return null;
@@ -150,17 +152,17 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                     ),
                     AppSpacing.gap16,
                     CustomTextFormField(
-                      hintText: 'Confirm Password',
+                      hintText: loc.confirmPassword,
                       controller: confrimPasswordController,
                       keyboardType: TextInputType.emailAddress,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Confirm Password is required';
+                          return loc.confirmPasswordRequired;
                         }
                         if (passwordController.text !=
                             confrimPasswordController.text) {
-                          return 'Password and confirm password should be same';
+                          return loc.passwordMismatch;
                         }
 
                         return null;
@@ -168,13 +170,13 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                     ),
                     AppSpacing.gap16,
                     CustomTextFormField(
-                      hintText: 'Mobile',
+                      hintText: loc.mobile,
                       controller: mobileController,
                       keyboardType: TextInputType.emailAddress,
 
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Mobile is required';
+                          return loc.mobileRequired;
                         }
 
                         return null;
@@ -183,20 +185,10 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                     AppSpacing.gap16,
                     CustomElevatedButton(
                       width: double.infinity,
-                      text: "Create",
+                      text: loc.create,
                       backgroundColor: themeColor.primaryColor,
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          // All fields are valid, print values
-                          print('Name: ${nameController.text}');
-                          print('Email: ${emailController.text}');
-                          print('Country: ${countryController.text}');
-                          print('Password: ${passwordController.text}');
-                          print(
-                            'Confirm Password: ${confrimPasswordController.text}',
-                          );
-                          print('Mobile: ${mobileController.text}');
-
                           context.read<AuthBloc>().add(
                             RegisterEvent(
                               name: nameController.text,
@@ -205,12 +197,6 @@ class _ResgisterUserScreenState extends State<ResgisterUserScreen> {
                               mobile: mobileController.text,
                               country: countryController.text,
                             ),
-                          );
-
-                          // You can now also proceed with registration logic here
-                        } else {
-                          print(
-                            "Validation failed. Please correct the errors.",
                           );
                         }
                       },

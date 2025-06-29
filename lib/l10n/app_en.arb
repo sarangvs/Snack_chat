@@ -21,5 +21,15 @@
   "country": "Country",
   "confirmPassword": "Confirm Password",
   "mobile": "Mobile",
-  "create": "Create"
+  "create": "Create",
+  "snack":"Snack",
+  "chat":"Chat",
+  "emailRequired": "Email is required",
+  "invalidEmail": "Enter a valid email",
+  "passwordRequired": "Password is required",
+  "nameRequired": "Name is required",
+  "countryRequired": "Country is required",
+  "passwordMismatch": "Password and confirm password should be same",
+  "confirmPasswordRequired": "Confirm Password is required",
+  "mobileRequired": "Mobile is required"
 }
