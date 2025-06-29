@@ -39,11 +39,13 @@ class _MapPageState extends State<MapPage> {
             currentLatLng = LatLng(position.latitude, position.longitude);
 
             return GoogleMap(
+              buildingsEnabled: true,
               onMapCreated: (controller) => _mapController = controller,
               initialCameraPosition: CameraPosition(
                 target: currentLatLng!,
                 zoom: 17,
               ),
+
               myLocationEnabled: true,
               polygons: {_createRectangle(currentLatLng!)},
               markers: _getNearbyWaterMarkers(currentLatLng!),
