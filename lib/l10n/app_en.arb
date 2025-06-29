@@ -1,5 +1,25 @@
-
 {
   "title": "Hello",
-  "switchLanguage": "Switch Language"
+  "switchLanguage": "Switch Language",
+  "settings": "Settings",
+  "snackChat": "SnackChat",
+  "map": "Map",
+  "user": "User",
+  "message": "Message",
+  "chats": "Chats",
+  "search": "Search",
+  "logoutConfirmationTitle": "Logout",
+  "logoutConfirmationMessage": "Are you sure you want to logout?",
+  "logout": "Logout",
+  "cancel": "Cancel",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "createPassword": "Create Password",
+  "createYourAccount": "Create your account",
+  "displayName": "Display Name",
+  "country": "Country",
+  "confirmPassword": "Confirm Password",
+  "mobile": "Mobile",
+  "create": "Create"
 }

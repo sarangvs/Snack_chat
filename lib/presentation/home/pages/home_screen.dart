@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chat_app/core/constants/app_spacing.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
+import 'package:chat_app/presentation/home/widgets/logout_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
               color: themeColor.dividerColor,
             ),
           ),
-          IconButton(onPressed: null, icon: Icon(Icons.logout)),
+          IconButton(
+            onPressed: () => showLogoutConfirmationDialog(context),
+            icon: Icon(Icons.logout, color: themeColor.dividerColor),
+          ),
         ],
       ),
       body: SafeArea(
@@ -97,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: themeColor.dividerColor,
         onPressed: () {
           context.push("/languageSwitch");
         },

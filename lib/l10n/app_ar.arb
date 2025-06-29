@@ -1,4 +1,25 @@
 {
   "title": "مرحبا",
-  "switchLanguage": "تبديل اللغة"
+  "switchLanguage": "تبديل اللغة",
+  "settings": "الإعدادات",
+  "snackChat": "دردشة الوجبات",
+  "map": "الخريطة",
+  "user": "المستخدم",
+  "message": "رسالة",
+  "chats": "المحادثات",
+  "search": "بحث",
+  "logoutConfirmationTitle": "تسجيل الخروج",
+  "logoutConfirmationMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "logout": "تسجيل الخروج",
+  "cancel": "إلغاء",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "login": "تسجيل الدخول",
+  "createPassword": "إنشاء كلمة مرور",
+  "createYourAccount": "أنشئ حسابك",
+  "displayName": "الاسم الظاهر",
+  "country": "البلد",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "mobile": "رقم الهاتف",
+  "create": "إنشاء"
 }
