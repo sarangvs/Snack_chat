@@ -2,6 +2,7 @@ import 'package:chat_app/presentation/map/bloc/map_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
@@ -29,7 +30,19 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeColor = Theme.of(context);
+    final themeStyle = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Map", style: themeStyle.titleLarge),
+        backgroundColor: themeColor.scaffoldBackgroundColor,
+        elevation: 0,
+        centerTitle: false,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+        ),
+      ),
       body: BlocBuilder<MapBloc, MapState>(
         builder: (context, state) {
           if (state is MapLoading) {
