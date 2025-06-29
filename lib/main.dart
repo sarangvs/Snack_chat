@@ -3,6 +3,7 @@ import 'package:chat_app/app.dart';
 import 'package:chat_app/data/data_sources/local/user_local_datasource.dart';
 import 'package:chat_app/presentation/auth/bloc/auth_bloc.dart';
 import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart';
+import 'package:chat_app/presentation/language_switch/cubit/locale_cubit.dart';
 import 'package:chat_app/presentation/map/bloc/map_bloc.dart';
 import 'package:chat_app/presentation/splash/bloc/splash_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<SplashCubit>(lazy: true, create: (_) => SplashCubit()),
+        BlocProvider<LocaleCubit>(lazy: true, create: (_) => LocaleCubit()),
         BlocProvider<AuthBloc>(create: (_) => getIt<AuthBloc>()),
         BlocProvider(create: (_) => getIt<ChatBloc>()),
         BlocProvider(create: (_) => getIt<MapBloc>()),

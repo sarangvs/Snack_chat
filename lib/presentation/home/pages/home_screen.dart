@@ -96,6 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.push("/languageSwitch");
+        },
+        child: Icon(Icons.language),
+      ),
     );
   }
 
