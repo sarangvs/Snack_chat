@@ -37,7 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         centerTitle: true,
         actions: [
-          IconButton(onPressed: null, icon: Icon(Icons.location_on_outlined)),
+          IconButton(
+            onPressed: () => context.push("/map"),
+            icon: Icon(
+              Icons.location_on_outlined,
+              color: themeColor.dividerColor,
+            ),
+          ),
           IconButton(onPressed: null, icon: Icon(Icons.logout)),
         ],
       ),

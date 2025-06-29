@@ -28,6 +28,8 @@ import 'package:chat_app/domain/repositories/chat_repository.dart' as _i23;
 import 'package:chat_app/domain/repositories/country_repository.dart' as _i236;
 import 'package:chat_app/domain/repositories/user_repository.dart' as _i390;
 import 'package:chat_app/domain/usecases/get_country_names.dart' as _i385;
+import 'package:chat_app/domain/usecases/get_current_location_usecase.dart'
+    as _i480;
 import 'package:chat_app/domain/usecases/get_messages_stream_usecase.dart'
     as _i746;
 import 'package:chat_app/domain/usecases/get_my_uid_usecase.dart' as _i568;
@@ -39,6 +41,7 @@ import 'package:chat_app/presentation/auth/bloc/auth_bloc.dart' as _i1053;
 import 'package:chat_app/presentation/auth/cubit/country_cubit.dart' as _i761;
 import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart' as _i693;
 import 'package:chat_app/presentation/home/bloc/home_bloc.dart' as _i432;
+import 'package:chat_app/presentation/map/bloc/map_bloc.dart' as _i564;
 import 'package:chat_app/presentation/qr_generater/bloc/qr_generator_bloc.dart'
     as _i548;
 import 'package:chat_app/presentation/splash/bloc/splash_cubit.dart' as _i154;
@@ -55,6 +58,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final firebaseModule = _$FirebaseModule();
+    gh.factory<_i480.GetCurrentLocation>(() => _i480.GetCurrentLocation());
     gh.factory<_i432.HomeBloc>(() => _i432.HomeBloc());
     gh.factory<_i154.SplashCubit>(() => _i154.SplashCubit());
     gh.factory<_i548.QrGeneratorBloc>(() => _i548.QrGeneratorBloc());
@@ -90,6 +94,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i236.CountryRepository>(
       () => _i587.CountryRepositoryImpl(gh<_i990.RemoteDataSource>()),
+    );
+    gh.factory<_i564.MapBloc>(
+      () => _i564.MapBloc(getCurrentLocation: gh<_i480.GetCurrentLocation>()),
     );
     gh.factory<_i385.GetCountryNames>(
       () => _i385.GetCountryNames(gh<_i236.CountryRepository>()),

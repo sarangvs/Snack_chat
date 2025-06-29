@@ -2,6 +2,7 @@ import 'package:chat_app/presentation/auth/pages/login_screen.dart';
 import 'package:chat_app/presentation/auth/pages/register_user_screen.dart';
 import 'package:chat_app/presentation/chat/pages/chat_screen.dart';
 import 'package:chat_app/presentation/home/pages/home_screen.dart';
+import 'package:chat_app/presentation/map/pages/map_view.dart';
 import 'package:chat_app/presentation/splash/pages/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,5 +44,6 @@ final router = GoRouter(
         );
       },
     ),
+    GoRoute(path: '/map', name: 'map', builder: (context, state) => MapPage()),
   ],
 );
