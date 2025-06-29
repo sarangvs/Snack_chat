@@ -43,9 +43,9 @@ import 'package:chat_app/presentation/auth/bloc/auth_bloc.dart' as _i1053;
 import 'package:chat_app/presentation/auth/cubit/country_cubit.dart' as _i761;
 import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart' as _i693;
 import 'package:chat_app/presentation/home/bloc/home_bloc.dart' as _i432;
+import 'package:chat_app/presentation/language_switch/cubit/locale_cubit.dart'
+    as _i661;
 import 'package:chat_app/presentation/map/bloc/map_bloc.dart' as _i564;
-import 'package:chat_app/presentation/qr_generater/bloc/qr_generator_bloc.dart'
-    as _i548;
 import 'package:chat_app/presentation/splash/bloc/splash_cubit.dart' as _i154;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:firebase_messaging/firebase_messaging.dart' as _i892;
@@ -64,7 +64,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i480.GetCurrentLocation>(() => _i480.GetCurrentLocation());
     gh.factory<_i432.HomeBloc>(() => _i432.HomeBloc());
     gh.factory<_i154.SplashCubit>(() => _i154.SplashCubit());
-    gh.factory<_i548.QrGeneratorBloc>(() => _i548.QrGeneratorBloc());
+    gh.factory<_i661.LocaleCubit>(() => _i661.LocaleCubit());
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.lazySingleton<_i892.FirebaseMessaging>(() => firebaseModule.messaging);
     gh.lazySingleton<_i990.RemoteDataSource>(() => _i990.RemoteDataSource());
