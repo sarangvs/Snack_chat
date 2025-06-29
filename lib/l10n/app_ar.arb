@@ -31,6 +31,9 @@
   "countryRequired": "البلد مطلوب",
   "passwordMismatch": "يجب أن تكون كلمة المرور وتأكيدها متطابقين",
   "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
-  "mobileRequired": "رقم الهاتف مطلوب"
+  "mobileRequired": "رقم الهاتف مطلوب",
+  "today": "اليوم",
+  "yesterday": "أمس",
+  "daysAgo": "منذ {days} يوم"
 
 }

@@ -4,6 +4,7 @@ import 'package:chat_app/domain/entities/message_entity.dart';
 import 'package:chat_app/presentation/auth/widgets/custom_textfield.dart';
 import 'package:chat_app/presentation/chat/bloc/chat_bloc.dart';
 import 'package:chat_app/presentation/chat/widget/chat_box_widget.dart';
+import 'package:chat_app/presentation/chat/widget/date_time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -86,13 +87,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         final model = messages[index];
                         final isMe = model.senderId == widget.myUid;
 
-                        // Format time
-                        final timeString =
-                            model.timestamp is DateTime
-                                ? TimeOfDay.fromDateTime(
-                                  model.timestamp,
-                                ).format(context)
-                                : 'Time unavailable';
+                        final timeString = formatChatTimestamp(
+                          context,
+                          model.timestamp,
+                        );
 
                         return ChatBoxWidget(
                           isMe: isMe,

@@ -31,5 +31,8 @@
   "countryRequired": "Country is required",
   "passwordMismatch": "Password and confirm password should be same",
   "confirmPasswordRequired": "Confirm Password is required",
-  "mobileRequired": "Mobile is required"
+  "mobileRequired": "Mobile is required",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "daysAgo": "{days} days ago"
 }
