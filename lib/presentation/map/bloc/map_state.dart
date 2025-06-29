@@ -11,11 +11,12 @@ class MapLoading extends MapState {}
 
 class MapLoaded extends MapState {
   final Position position;
+  final List<LatLng> waterBodies;
 
-  MapLoaded({required this.position});
+  MapLoaded({required this.position, required this.waterBodies});
 
   @override
-  List<Object?> get props => [position];
+  List<Object?> get props => [position, waterBodies];
 }
 
 class MapError extends MapState {

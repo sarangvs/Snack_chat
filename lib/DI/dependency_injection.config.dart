@@ -26,6 +26,7 @@ import 'package:chat_app/data/data_sources/repositories/user_repository_impl.dar
 import 'package:chat_app/DI/app_module.dart' as _i584;
 import 'package:chat_app/domain/repositories/chat_repository.dart' as _i23;
 import 'package:chat_app/domain/repositories/country_repository.dart' as _i236;
+import 'package:chat_app/domain/repositories/map_repository.dart' as _i745;
 import 'package:chat_app/domain/repositories/user_repository.dart' as _i390;
 import 'package:chat_app/domain/usecases/get_country_names.dart' as _i385;
 import 'package:chat_app/domain/usecases/get_current_location_usecase.dart'
@@ -33,6 +34,7 @@ import 'package:chat_app/domain/usecases/get_current_location_usecase.dart'
 import 'package:chat_app/domain/usecases/get_messages_stream_usecase.dart'
     as _i746;
 import 'package:chat_app/domain/usecases/get_my_uid_usecase.dart' as _i568;
+import 'package:chat_app/domain/usecases/get_nearby_water_bodies.dart' as _i825;
 import 'package:chat_app/domain/usecases/login_user.dart' as _i680;
 import 'package:chat_app/domain/usecases/register_user.dart' as _i841;
 import 'package:chat_app/domain/usecases/send_message_usecase.dart' as _i40;
@@ -58,6 +60,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final firebaseModule = _$FirebaseModule();
+    final registerModule = _$RegisterModule();
     gh.factory<_i480.GetCurrentLocation>(() => _i480.GetCurrentLocation());
     gh.factory<_i432.HomeBloc>(() => _i432.HomeBloc());
     gh.factory<_i154.SplashCubit>(() => _i154.SplashCubit());
@@ -65,6 +68,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.lazySingleton<_i892.FirebaseMessaging>(() => firebaseModule.messaging);
     gh.lazySingleton<_i990.RemoteDataSource>(() => _i990.RemoteDataSource());
+    gh.factory<String>(
+      () => registerModule.apiKey,
+      instanceName: 'GoogleMapsApiKey',
+    );
     gh.lazySingleton<_i1029.FirebaseRemoteDataSource>(
       () => _i482.FirebaseRemoteDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
@@ -89,14 +96,25 @@ extension GetItInjectableX on _i174.GetIt {
         sendMessage: gh<_i40.SendMessageUseCase>(),
       ),
     );
+    gh.lazySingleton<_i745.MapRepository>(
+      () => registerModule.provideMapRepository(
+        gh<String>(instanceName: 'GoogleMapsApiKey'),
+      ),
+    );
     gh.factory<_i568.GetMyUidUseCase>(
       () => _i568.GetMyUidUseCase(gh<String>()),
+    );
+    gh.factory<_i825.GetNearbyWaterBodies>(
+      () => _i825.GetNearbyWaterBodies(gh<_i745.MapRepository>()),
     );
     gh.lazySingleton<_i236.CountryRepository>(
       () => _i587.CountryRepositoryImpl(gh<_i990.RemoteDataSource>()),
     );
     gh.factory<_i564.MapBloc>(
-      () => _i564.MapBloc(getCurrentLocation: gh<_i480.GetCurrentLocation>()),
+      () => _i564.MapBloc(
+        getCurrentLocation: gh<_i480.GetCurrentLocation>(),
+        getNearbyWaterBodies: gh<_i825.GetNearbyWaterBodies>(),
+      ),
     );
     gh.factory<_i385.GetCountryNames>(
       () => _i385.GetCountryNames(gh<_i236.CountryRepository>()),
@@ -121,3 +139,5 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$FirebaseModule extends _i584.FirebaseModule {}
+
+class _$RegisterModule extends _i584.RegisterModule {}

@@ -48,7 +48,17 @@ class _MapPageState extends State<MapPage> {
 
               myLocationEnabled: true,
               polygons: {_createRectangle(currentLatLng!)},
-              markers: _getNearbyWaterMarkers(currentLatLng!),
+              markers:
+                  state.waterBodies.map((latLng) {
+                    return Marker(
+                      markerId: MarkerId(latLng.toString()),
+                      position: latLng,
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueAzure,
+                      ),
+                      infoWindow: const InfoWindow(title: "Pond / Lake"),
+                    );
+                  }).toSet(),
             );
           } else if (state is MapError) {
             return Center(child: Text(state.message));
@@ -73,22 +83,5 @@ class _MapPageState extends State<MapPage> {
       strokeColor: Colors.blue,
       fillColor: Colors.blue.withOpacity(0.2),
     );
-  }
-
-  Set<Marker> _getNearbyWaterMarkers(LatLng currentLatLng) {
-    // For demonstration, you can hardcode or later use Google Places or OpenStreetMap
-    List<LatLng> dummyWaterBodies = [
-      LatLng(currentLatLng.latitude + 0.004, currentLatLng.longitude + 0.003),
-      LatLng(currentLatLng.latitude - 0.005, currentLatLng.longitude + 0.002),
-    ];
-
-    return dummyWaterBodies.map((latLng) {
-      return Marker(
-        markerId: MarkerId(latLng.toString()),
-        position: latLng,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        infoWindow: const InfoWindow(title: "Pond / Lake"),
-      );
-    }).toSet();
   }
 }
